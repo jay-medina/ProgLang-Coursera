@@ -33,12 +33,10 @@ fun numberOfAdds e =
 fun max_constant e =
   let 
     fun findMaxOfTwo(e1, e2) =
-      let
-        val f1 = max_constant (e1)
-        val f2 = max_constant (e2)
-      in
-        Int.max(f1, f2)
-      end
+      Int.max(
+        max_constant e1, 
+        max_constant e2
+      )
 
   in 
     case e of
