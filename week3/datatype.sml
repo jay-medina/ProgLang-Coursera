@@ -32,15 +32,12 @@ fun numberOfAdds e =
 
 fun max_constant e =
   let 
-    fun selectMax(current: int, other: int) = 
-      if current > other then current else other
-    
     fun findMaxOfTwo(e1, e2) =
       let
         val f1 = max_constant (e1)
         val f2 = max_constant (e2)
       in
-        selectMax(f1, f2)
+        Int.max(f1, f2)
       end
 
   in 
