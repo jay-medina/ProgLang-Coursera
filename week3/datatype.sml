@@ -31,18 +31,15 @@ fun numberOfAdds e =
   | Multiply(e1, e2) => numberOfAdds(e1) + numberOfAdds(e2)
 
 fun max_constant e =
-  let 
-    fun findMaxOfTwo(e1, e2) =
-      Int.max(
-        max_constant e1, 
-        max_constant e2
-      )
-
-  in 
     case e of
       Constant c => c
     | Negate e1 => max_constant e1
-    | Add (e1, e2) => findMaxOfTwo(e1,e2)
-    | Multiply(e1,e2) => findMaxOfTwo(e1,e2)
-  end
+    | Add (e1, e2) =>  Int.max(
+                          max_constant e1, 
+                          max_constant e2
+                        )
+    | Multiply(e1,e2) =>  Int.max(
+                            max_constant e1, 
+                            max_constant e2
+                          )
   
