@@ -58,3 +58,16 @@ fun get_substitutions2 (strListList, str) =
   in
     helper([], strListList)
   end
+
+(* 1 d *)
+fun similar_names (strListList, fullName) =
+  let
+    val {first=f, middle=m, last=l} = fullName;
+    val subs = get_substitutions1(strListList, f);
+    fun addTheRestOfSubs(subs) = 
+      case subs of
+        [] => []
+      | x :: xs => {first=x, middle=m, last=l} :: addTheRestOfSubs(xs)
+  in
+    [fullName] @ addTheRestOfSubs(subs)
+  end
