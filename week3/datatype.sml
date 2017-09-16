@@ -4,6 +4,7 @@ datatype rank = Jack | Queen | King | Ace | Num of int
 datatype id = StudentNum of int
          | Name of string * (string option) * string
 
+type card = suit * rank (* aliaing types *)
 
 val id = StudentNum(123)
 val id2 = Name("jose", SOME("manuel"), "Medina")
