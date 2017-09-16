@@ -8,8 +8,10 @@ val test1a = all_except_option ("string", []) = NONE
 val test1b = all_except_option ("str", ["str2", "str", "str1"]) = SOME ["str2", "str1"]
 
 val test2 = get_substitutions1 ([["foo"],["there"]], "foo") = []
+val test2a = get_substitutions1 ([["Fred","Fredrick"],["Elizabeth","Betty"],["Freddie","Fred","F"]], "Fred") = ["Fredrick","Freddie","F"]
 
 val test3 = get_substitutions2 ([["foo"],["there"]], "foo") = []
+val test3a = get_substitutions2 ([["Fred","Fredrick"],["Elizabeth","Betty"],["Freddie","Fred","F"]], "Fred") = ["Fredrick","Freddie","F"]
 
 val test4 = similar_names ([["Fred","Fredrick"],["Elizabeth","Betty"],["Freddie","Fred","F"]], {first="Fred", middle="W", last="Smith"}) =
 	    [{first="Fred", last="Smith", middle="W"}, {first="Fredrick", last="Smith", middle="W"},

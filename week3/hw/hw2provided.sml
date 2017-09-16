@@ -21,10 +21,9 @@ exception IllegalMove
 
 (* put your solutions for problem 2 here *)
 
-(* 1 *)
+(* 1 a*)
 fun all_except_option (str, strList) =
-  let
-    fun isInList strList = 
+  let fun isInList strList = 
       case strList of
         [] => false
       | x::xs => same_string(x, str) orelse (isInList xs)
@@ -32,11 +31,30 @@ fun all_except_option (str, strList) =
     fun removeItem strList =
       case strList of 
         [] => []
-      | x::xs => if same_string(x, str)
-                 then removeItem xs
+      | x::xs => if same_string(x, str) then removeItem xs
                  else x :: removeItem(xs)
   in
-    if isInList(strList)
-    then SOME (removeItem strList)
+    if isInList(strList) then SOME (removeItem strList)
     else NONE
+  end
+
+(* 1 b *)
+fun get_substitutions1 (strListList, str) =
+  case strListList of
+    [] => []
+  | x::xs => case all_except_option(str, x) of
+                 NONE => get_substitutions1(xs, str)
+               | SOME rst => rst @ get_substitutions1(xs, str)
+
+(* 1 c *)
+fun get_substitutions2 (strListList, str) =
+  let
+    fun helper(acc, rst) =
+      case rst of
+       [] => acc
+      | x::xs => case all_except_option(str, x) of
+                 NONE => helper(acc, xs)
+               | SOME others => helper(acc @ others, xs)
+  in
+    helper([], strListList)
   end
