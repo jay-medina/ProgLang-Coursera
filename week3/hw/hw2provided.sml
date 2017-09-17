@@ -85,3 +85,10 @@ fun card_value (suit, rank) =
     Ace => 11
   | Num x => x
   | _ => 10
+
+(* 2c *)
+fun remove_card (cs, c, ex) =
+  case cs of
+    [] => raise ex
+  | x :: xs => if x = c then xs 
+               else x :: remove_card(xs, c, ex)
