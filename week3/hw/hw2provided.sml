@@ -109,3 +109,16 @@ fun sum_cards (cs) =
   in
     helper(0, cs)
   end
+
+(* 2f *)
+fun score (heldCards, goal) =
+  let
+    val sum = sum_cards heldCards
+    val prelimScore = if sum > goal
+      then 3 * (sum - goal)
+      else goal - sum
+  in
+    if all_same_color heldCards
+    then prelimScore div 2
+    else prelimScore
+  end
