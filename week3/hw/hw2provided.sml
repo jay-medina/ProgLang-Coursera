@@ -122,3 +122,21 @@ fun score (heldCards, goal) =
     then prelimScore div 2
     else prelimScore
   end
+
+(* 2g *)
+fun officiate (cardList, moveList, goal) =
+  let
+    fun isSumOver (heldCards) = (sum_cards heldCards) > goal
+
+    fun runner(moveList, cardList, heldCards) =
+      case (moveList, cardList) of
+        ([], _) => score(heldCards, goal)
+      | (Draw :: ms, []) => score(heldCards, goal)
+      | (Draw :: ms, x :: xs) => if isSumOver(x :: heldCards)
+                                 then score(x :: heldCards, goal)
+                                 else runner(ms, xs, x::heldCards)
+      | (Discard (c) :: ms, _) => runner(ms, cardList, remove_card(heldCards, c, IllegalMove))
+                     
+  in 
+    runner(moveList, cardList, [])
+  end

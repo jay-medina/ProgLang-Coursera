@@ -58,5 +58,45 @@ val test13 = ((officiate([(Clubs,Jack),(Spades,Num(8))],
                          42);
                false) 
               handle IllegalMove => true)
-             
-             
+
+(* draw one, sum < goal *)                
+val test11a = officiate(
+  [(Clubs, Ace)], 
+  [Draw],
+  20
+) = 4
+
+(* draw two, 1 less card, sum < goal *)
+val test11b = officiate(
+  [(Clubs, Ace)],
+  [Draw, Draw],
+  15
+) = 2
+
+(* draw two, 2 cards, sum > goal *)
+val test11c = officiate(
+  [(Clubs, Ace), (Diamonds, Num 7)],
+  [Draw, Draw],
+  15
+) = 9
+
+(* draw two, 3 cards, sum < goal *)
+val test11d = officiate(
+  [(Clubs, Ace), (Diamonds, Num 7), (Hearts, Jack)],
+  [Draw, Draw],
+  20
+) = 2
+
+(* draw two, discard one, 2 cards, sum < goal *)
+val test11e = officiate(
+  [(Clubs, Ace), (Diamonds, Num 7), (Hearts, Jack)],
+  [Draw, Discard (Clubs, Ace), Draw],
+  20
+) = 6
+
+(* draw two, discard one, error *)
+val test11f = (officiate(
+  [(Clubs, Ace), (Diamonds, Num 7), (Hearts, Jack)],
+  [Draw, Discard (Diamonds, Ace), Draw],
+  20
+) handle IllegalMove => ~1) = ~1
