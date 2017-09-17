@@ -71,3 +71,10 @@ fun similar_names (strListList, fullName) =
   in
     [fullName] @ addTheRestOfSubs(subs)
   end
+
+(* 2 a *)
+fun card_color (suit, rank) =
+  case suit of
+    Spades => Black
+  | Clubs => Black
+  | _ => Red
