@@ -118,3 +118,59 @@ val test3achallenge5 = score_challenge (
   [(Hearts, Num 2), (Diamonds, Ace)],
   10
 ) = 3
+
+
+val test11 = officiate_challenge ([(Hearts, Num 2),(Clubs, Num 4)],[Draw], 15) = 6
+
+val test12 = officiate_challenge ([(Clubs,Ace),(Spades,Ace),(Clubs,Ace),(Spades,Ace)],
+                        [Draw,Draw,Draw,Draw,Draw],
+                        42)
+             = 4
+
+val test13 = ((officiate_challenge([(Clubs,Jack),(Spades,Num(8))],
+                         [Draw,Discard(Hearts,Jack)],
+                         42);
+               false) 
+              handle IllegalMove => true)
+
+(* draw one, sum < goal *)                
+val test11a = officiate_challenge(
+  [(Clubs, Ace)], 
+  [Draw],
+  20
+) = 4
+
+(* draw two, 1 less card, sum < goal *)
+val test11b = officiate_challenge(
+  [(Clubs, Ace)],
+  [Draw, Draw],
+  15
+) = 2
+
+(* draw two, 2 cards, sum > goal *)
+val test11c = officiate_challenge(
+  [(Clubs, Ace), (Diamonds, Num 7)],
+  [Draw, Draw],
+  15
+) = 7
+
+(* draw two, 3 cards, sum < goal *)
+val test11d = officiate_challenge(
+  [(Clubs, Ace), (Diamonds, Num 7), (Hearts, Jack)],
+  [Draw, Draw],
+  20
+) = 2
+
+(* draw two, discard one, 2 cards, sum < goal *)
+val test11e = officiate_challenge(
+  [(Clubs, Ace), (Diamonds, Num 7), (Hearts, Jack)],
+  [Draw, Discard (Clubs, Ace), Draw],
+  20
+) = 6
+
+(* draw two, discard one, error *)
+val test11f = (officiate_challenge(
+  [(Clubs, Ace), (Diamonds, Num 7), (Hearts, Jack)],
+  [Draw, Discard (Diamonds, Ace), Draw],
+  20
+) handle IllegalMove => ~1) = ~1

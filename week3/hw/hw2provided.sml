@@ -141,10 +141,10 @@ fun officiate (cardList, moveList, goal) =
     runner(moveList, cardList, [])
   end
 
-fun sumWithAcesLow(aces, sum) =
+fun sumWithAcesLow(aces, sum, goal) =
   if sum > goal 
   then if aces > 0
-        then sumWithAcesLow(aces - 1, sum - 10)
+        then sumWithAcesLow(aces - 1, sum - 10, goal)
         else sum
   else sum
 
@@ -171,7 +171,8 @@ fun score_challenge (heldCards, goal) =
     calcScore(
       sumWithAcesLow (
         getNumOfAces heldCards, 
-        sum_cards heldCards
+        sum_cards heldCards,
+        goal
       )
     )
   end
@@ -182,7 +183,8 @@ fun officiate_challenge (cardList, moveList, goal) =
       let 
         val sumAfter = sumWithAcesLow (
           getNumOfAces heldCards, 
-          sum_cards heldCards
+          sum_cards heldCards,
+          goal
         )
       in
         sumAfter > goal
