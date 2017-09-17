@@ -78,3 +78,10 @@ fun card_color (suit, rank) =
     Spades => Black
   | Clubs => Black
   | _ => Red
+
+(* 2b *)
+fun card_value (suit, rank) =
+  case rank of
+    Ace => 11
+  | Num x => x
+  | _ => 10
