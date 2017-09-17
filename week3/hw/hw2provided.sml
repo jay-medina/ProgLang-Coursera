@@ -140,3 +140,63 @@ fun officiate (cardList, moveList, goal) =
   in 
     runner(moveList, cardList, [])
   end
+
+fun sumWithAcesLow(aces, sum) =
+  if sum > goal 
+  then if aces > 0
+        then sumWithAcesLow(aces - 1, sum - 10)
+        else sum
+  else sum
+
+fun getNumOfAces heldCards = 
+  case heldCards of
+    [] => 0
+  | (_, Ace)::xs => 1 + getNumOfAces(xs)
+  | x :: xs => getNumOfAces(xs)
+
+(* 3a *)
+fun score_challenge (heldCards, goal) =
+  let
+    fun calcScore sum =
+      let 
+        val prelimScore = if sum > goal
+                          then 3 * (sum - goal)
+                          else goal - sum
+      in 
+        if all_same_color heldCards
+        then prelimScore div 2
+        else prelimScore
+      end
+  in
+    calcScore(
+      sumWithAcesLow (
+        getNumOfAces heldCards, 
+        sum_cards heldCards
+      )
+    )
+  end
+
+fun officiate_challenge (cardList, moveList, goal) =
+  let
+    fun isSumOver (heldCards) = 
+      let 
+        val sumAfter = sumWithAcesLow (
+          getNumOfAces heldCards, 
+          sum_cards heldCards
+        )
+      in
+        sumAfter > goal
+      end
+    
+    fun runner(moveList, cardList, heldCards) =
+      case (moveList, cardList) of
+        ([], _) => score_challenge(heldCards, goal)
+      | (Draw :: ms, []) => score_challenge(heldCards, goal)
+      | (Draw :: ms, x :: xs) => if isSumOver(x :: heldCards)
+                                 then score_challenge(x :: heldCards, goal)
+                                 else runner(ms, xs, x::heldCards)
+      | (Discard (c) :: ms, _) => runner(ms, cardList, remove_card(heldCards, c, IllegalMove))
+                     
+  in 
+    runner(moveList, cardList, [])
+  end

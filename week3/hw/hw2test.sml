@@ -100,3 +100,21 @@ val test11f = (officiate(
   [Draw, Discard (Diamonds, Ace), Draw],
   20
 ) handle IllegalMove => ~1) = ~1
+
+
+val test3achallenge = score_challenge ([(Hearts, Num 2),(Clubs, Num 4)],10) = 4 (* sum < goal *)
+val test3achallenge1 = score_challenge ([(Hearts, Num 2),(Diamonds, Num 4)],10) = 2 (* sum < goal, all same color *)
+val test3achallenge2 = score_challenge ([(Hearts, Num 2),(Clubs, King)],10) = 6 (* sum > goal *)
+val test3achallenge3 = score_challenge ([(Hearts, Num 2),(Diamonds, King)],10) = 3 (* sum > goal, all same color *)
+
+(* sum > goal, 1 ace *)
+val test3achallenge4 = score_challenge (
+  [(Hearts, Num 2),(Clubs, King), (Diamonds, Ace)],
+  10
+) = 9
+
+(* sum < goal, 1 ace *)
+val test3achallenge5 = score_challenge (
+  [(Hearts, Num 2), (Diamonds, Ace)],
+  10
+) = 3
