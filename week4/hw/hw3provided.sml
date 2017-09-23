@@ -84,3 +84,6 @@ fun all_answers f lst =
 
 (* 9a *)
 val count_wildcards = g (fn x => 1) (fn x => 0)
+
+(* 9b *)
+val count_wild_and_variable_lengths = g (fn x => 1) String.size
