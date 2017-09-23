@@ -14,6 +14,9 @@ val test2b = longest_string1 ["A","bc","Cb"] = "bc"
 val test2c = longest_string1 [] = ""
 
 val test3 = longest_string2 ["A","bc","C"] = "bc"
+val test3a = longest_string2 ["Acd","bc","C"] = "Acd"
+val test3b = longest_string2 ["A","bc","Cb"] = "Cb"
+val test3c = longest_string2 [] = ""
 
 val test4a = longest_string3 ["A","bc","C"] = "bc"
 

@@ -41,3 +41,7 @@ val only_capitals = List.filter (fn x => Char.isUpper (String.sub (x, 0)))
 (* 2 *)
 val longest_string1 =
   List.foldl (fn (next, acc) => if (String.size next > String.size acc) then next else acc) ""
+
+(* 3 *)
+val longest_string2 =
+  List.foldl (fn (next, acc) => if (String.size next >= String.size acc) then next else acc) ""
