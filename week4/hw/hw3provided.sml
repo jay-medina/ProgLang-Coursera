@@ -66,3 +66,18 @@ fun first_answer f lst =
   | x :: xs => case f(x) of
                  SOME y => y
                | NONE => first_answer f xs
+
+(* 8 *)
+fun all_answers f lst =
+  let fun looper (lst, acc) =
+      case lst of 
+        [] => acc
+      | x :: xs => case f(x) of 
+                    SOME y => looper(xs, acc @ y)
+                   | NONE => []
+  in
+    case (lst, looper(lst, [])) of
+      ([], _) => SOME []
+    | (_, []) => NONE
+    | (_, y) => SOME y          
+  end
