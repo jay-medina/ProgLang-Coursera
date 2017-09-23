@@ -45,3 +45,10 @@ val longest_string1 =
 (* 3 *)
 val longest_string2 =
   List.foldl (fn (next, acc) => if (String.size next >= String.size acc) then next else acc) ""
+
+(* 4 *)
+fun longest_string_helper f = List.foldl (fn (next, acc) => if f(String.size next, String.size acc) then next else acc) ""
+
+val longest_string3 = longest_string_helper (fn (x, y) => x > y)
+
+val longest_string4 = longest_string_helper (fn (x, y) => x >= y)
