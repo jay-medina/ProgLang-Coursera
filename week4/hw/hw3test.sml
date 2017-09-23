@@ -42,6 +42,8 @@ val test8a = all_answers (fn x => if true then SOME [x] else NONE) [] = SOME []
 val test8b = all_answers (fn x => if x > 1 then SOME [x] else NONE) [2,3,4,5] = SOME[2,3,4,5]
 
 val test9a = count_wildcards Wildcard = 1
+val test9a1 = count_wildcards (TupleP [Wildcard, Wildcard]) = 2
+val test9a2 = count_wildcards (ConstructorP ("test9a2", TupleP [Wildcard, Wildcard, Variable "whats up"])) = 2
 
 val test9b = count_wild_and_variable_lengths (Variable("a")) = 1
 

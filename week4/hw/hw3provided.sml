@@ -81,3 +81,6 @@ fun all_answers f lst =
     | (_, []) => NONE
     | (_, y) => SOME y          
   end
+
+(* 9a *)
+val count_wildcards = g (fn x => 1) (fn x => 0)
