@@ -108,3 +108,20 @@ fun check_pat pat =
   in
     (not o ifStrRepeats o getAllVariableStrs) pat
   end
+
+(* 11 *)
+fun match (v, p) = 
+  case (v, p) of
+    (_, Wildcard) => SOME []
+  | (v, Variable s) => SOME [(s, v)]
+  | (Unit, UnitP) => SOME []
+  | (Const v, ConstP i) => if i = v then SOME [] else NONE
+  | (Tuple vlst, TupleP plst) => 
+      if length (vlst) = length (plst) 
+      then all_answers match (ListPair.zip(vlst, plst))
+      else NONE
+  | (Constructor (s1, v), ConstructorP (s2, p)) =>
+      if s1 = s2
+      then match (v, p)
+      else NONE
+  | _ => NONE
