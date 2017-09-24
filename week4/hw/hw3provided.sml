@@ -91,3 +91,20 @@ val count_wild_and_variable_lengths = g (fn x => 1) String.size
 (* 9c *)
 fun count_some_var (str, pat) = 
   g (fn x => 0) (fn x => if (str = x) then 1 else 0) pat
+
+(* 10 *)
+fun check_pat pat = 
+  let fun getAllVariableStrs pat =
+        case pat of
+          Variable x => [x]
+        | ConstructorP (_, p) => getAllVariableStrs p
+        | TupleP (x::xs) => getAllVariableStrs(x) @ getAllVariableStrs(TupleP xs)
+        | _ => []
+
+      fun ifStrRepeats strList =
+        case strList of 
+          [] => false
+        | x::xs => (List.exists (fn y => x = y) xs) orelse ifStrRepeats(xs)
+  in
+    (not o ifStrRepeats o getAllVariableStrs) pat
+  end
