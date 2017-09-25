@@ -20,3 +20,5 @@
 (define (my-map f xs)
   (if (null? xs) null
       (cons (f (car xs)) (my-map f (cdr xs)))))
+
+(define test-map (my-map (lambda (x) (+ x 1)) (list 3 4 5)))
