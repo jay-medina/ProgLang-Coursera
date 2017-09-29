@@ -3,7 +3,7 @@ struct
   datatype rational = Whole of int | Frac of int*int
   exception BadFrac
 
-  fun gcd (x y) =
+  fun gcd (x, y) =
     if x = y 
     then x
     else if x < y
