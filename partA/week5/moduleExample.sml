@@ -1,4 +1,14 @@
-structure Rational1 =
+signature RATIONAL_A =
+sig
+  type rational
+  exception BadFrac
+  val Whole: int -> rational
+  val make_frac: int * int -> rational
+  val add : rational * rational -> rational
+  val toString: rational -> string
+end
+
+structure Rational1 :> RATIONAL_A =
 struct
   datatype rational = Whole of int | Frac of int*int
   exception BadFrac
