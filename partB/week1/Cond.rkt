@@ -16,3 +16,4 @@
         [(number? (car xs)) (+ (car xs) (sum3 (cdr xs)))]
         [#t (+ (sum3 (car xs)) (sum3 (cdr xs)))]))
 
+
